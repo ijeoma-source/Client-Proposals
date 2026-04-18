@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — B2B Lead Generation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --ink-soft: #5a5750;
+    --ink-faint: #9a9690;
+    --paper: #faf9f6;
+    --paper-warm: #f2efe8;
+    --accent: #c8502a;
+    --accent-light: #f5e8e2;
+    --border: #e2ddd5;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* PAGE LAYOUT */
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 6rem;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .tag-secondary {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 2.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  .header-intro {
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+    max-width: 580px;
+    line-height: 1.75;
+  }
+
+  /* METRICS BAND */
+  .metrics-band {
+    background: var(--ink);
+    border-radius: 6px;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: 3.5rem;
+  }
+
+  .metric-item {
+    padding: 0 1.5rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+
+  .metric-item:first-child { padding-left: 0; }
+  .metric-item:last-child { border-right: none; padding-right: 0; }
+
+  .metric-num {
+    font-family: var(--serif);
+    font-size: 2.25rem;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .metric-num span {
+    color: #c8895a;
+  }
+
+  .metric-desc {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.625rem;
+    font-weight: 400;
+    margin-bottom: 0.875rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 0.875rem;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  /* PROCESS STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 44px;
+    bottom: -20px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+  }
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-right {
+    padding: 0 0 2.5rem 0;
+  }
+
+  .step-title {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* TOOLS ROW */
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.75rem;
+  }
+
+  .tool-pill {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  /* EXAMPLE CARDS */
+  .examples { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .example-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .example-header {
+    padding: 1rem 1.25rem 0.875rem;
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .example-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+
+  .example-founder {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .outcome-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2d6a4f;
+    background: #d8f3dc;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .example-body {
+    padding: 1.25rem;
+  }
+
+  .signal-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .signal-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .signal-text {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .message-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.125rem;
+    margin: 0.875rem 0;
+  }
+
+  .message-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .message-text {
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .result-line {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.875rem;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .result-line::before {
+    content: '→';
+    color: var(--accent);
+    font-style: normal;
+    flex-shrink: 0;
+  }
+
+  /* INSIGHT BOX */
+  .insight {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    border-radius: 0 6px 6px 0;
+    padding: 1.5rem 1.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .insight-title {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.625rem;
+  }
+
+  .insight p {
+    font-size: 0.9rem;
+    color: #6b4a3a;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  .doc-footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  .confidential {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 2.5rem 1.25rem 4rem; }
+    h1 { font-size: 2rem; }
+    .metrics-band { grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1.5rem; }
+    .metric-item { border-right: none; padding: 0; text-align: left; }
+    .metric-item:nth-child(odd) { border-right: none; }
+    .doc-footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-meta">
+      <span class="tag">Case Study</span>
+      <span class="tag-secondary">B2B SaaS · Lead Generation</span>
+    </div>
+    <h1>From cold list to booked calls: a founder-facing outbound system</h1>
+    <p class="header-intro">How I built a full lead generation funnel — from signal-based LinkedIn scraping to hyper-personalized outreach — and booked 10 qualified founder calls in two weeks. All client identities have been anonymized for confidentiality.</p>
+  </header>
+
+  <!-- METRICS -->
+  <div class="metrics-band">
+    <div class="metric-item">
+      <div class="metric-num">50<span>+</span></div>
+      <div class="metric-desc">LinkedIn posts scraped</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">~215</div>
+      <div class="metric-desc">High-signal leads identified</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">10<span>–15%</span></div>
+      <div class="metric-desc">Weekly email open rate</div>
+    </div>
+    <div class="metric-item" style="margin-top: 1.5rem;">
+      <div class="metric-num">40<span>–70</span></div>
+      <div class="metric-desc">Roundtable attendees/week</div>
+    </div>
+    <div class="metric-item" style="margin-top: 1.5rem;">
+      <div class="metric-num">10<span>/20</span></div>
+      <div class="metric-desc">Slack outreach → booked calls</div>
+    </div>
+    <div class="metric-item" style="margin-top: 1.5rem;">
+      <div class="metric-num">10<span>/10</span></div>
+      <div class="metric-desc">Calls → onboarded to app</div>
+    </div>
+  </div>
+
+  <!-- THE CHALLENGE -->
+  <section class="section">
+    <div class="section-label">The challenge</div>
+    <h2>No outbound motion. A product that needed the right founders.</h2>
+    <p>The client was an early-stage AI platform built to help founders navigate high-stakes decisions — hiring gaps, fundraising pivots, operational bottlenecks. Think of it as an always-on strategic thinking partner. The product had real depth, but zero structured outbound system.</p>
+    <p>The goal was clear: find founders who were already living the problems this product solves, warm them up without burning them, and get them into a real conversation with the founder. The entire funnel — from sourcing to booked call — needed to be built from scratch.</p>
+  </section>
+
+  <!-- THE PROCESS -->
+  <section class="section">
+    <div class="section-label">The process</div>
+    <h2>Three-stage funnel: signal, warm-up, convert.</h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-circle">1</div>
+        </div>
+        <div class="step-right">
+          <p class="step-title">Signal-based lead sourcing with Phantombuster + Apollo + Clay</p>
+          <p>Rather than building a broad list from thin criteria, I reverse-engineered where high-intent founders were already showing up publicly. I identified LinkedIn posts from industry thought leaders discussing the exact pain points the product addressed: hiring gaps, fundraising challenges, operational strain, and the loneliness of founding.</p>
+          <p>Using Phantombuster, I scraped engagement data from 50+ targeted posts. Comments were treated as high-signal (the person is actively thinking about this problem); likes were lower signal and deprioritised. From an initial pool of 1,000+ profiles, I filtered down to ~215 qualified leads — founders who were not just present, but actively engaging with the right problems. Apollo.io and Clay were used to enrich the list with business context, recent activity, and contact data.</p>
+          <p>One key lesson: LinkedIn flagged my personal account during scraping. I adapted by reducing scrape volume and moving research activity off LinkedIn, reserving the platform only for direct outreach at a low, controlled cadence.</p>
+          <div class="tools-row">
+            <span class="tool-pill">Phantombuster</span>
+            <span class="tool-pill">Apollo.io</span>
+            <span class="tool-pill">Clay</span>
+            <span class="tool-pill">LinkedIn Sales Navigator</span>
+            <span class="tool-pill">Brevo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-circle">2</div>
+        </div>
+        <div class="step-right">
+          <p class="step-title">Warm-up via weekly live roundtable events</p>
+          <p>Cold outreach to cold leads rarely works with busy founders. Instead of going straight to a pitch, scraped leads were funnelled into a weekly live roundtable event hosted on LinkedIn Live. These events pulled in 40–70 attendees per week, with approximately 50% of attendees traceable back to the scraped list — confirmed by cross-referencing names from the enriched spreadsheet.</p>
+          <p>A weekly email newsletter ran in parallel via Brevo, achieving 10–15% open rates over the campaign period. The roundtable served a critical function: by the time outreach happened, these founders already had a positive association with the brand. Trust was built before the ask.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-circle">3</div>
+        </div>
+        <div class="step-right">
+          <p class="step-title">Hyper-personalized Slack DM conversion</p>
+          <p>After founders joined the community Slack post-event, I ran a direct outreach campaign to convert them into 1:1 demo calls with the founder. Early attempts using generic follow-ups — referencing past event attendance or vague product pitches — produced poor results. Busy founders simply didn't respond.</p>
+          <p>The breakthrough came from real-time research. Before each outreach, I identified a specific, recent development in that founder's world — a funding round, a new project launch, a public announcement, a challenge mentioned during the event — and opened with that signal directly. The outreach no longer felt like a mass campaign. It felt like someone had actually paid attention.</p>
+          <p>Result: Out of 15–20 founders personally reached out to via Slack, 10 booked calls with the founder. All 10 were onboarded to the app during that first call — the founder ran a live demo and converted them on the spot. Several later became vocal advocates, sharing their experience at subsequent roundtable events.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section class="section">
+    <div class="section-label">Real examples</div>
+    <h2>What the personalization actually looked like.</h2>
+
+    <div class="examples">
+
+      <div class="example-card">
+        <div class="example-header">
+          <div>
+            <div class="example-label">Example A</div>
+            <div class="example-founder">Food &amp; beverage founder — post-crowdfunding expansion</div>
+          </div>
+          <span class="outcome-badge">Converted → Active user</span>
+        </div>
+        <div class="example-body">
+          <div class="signal-row">
+            <div class="signal-dot"></div>
+            <p class="signal-text"><strong>Signal identified:</strong> Founder had recently closed a crowdfunding round and was publicly signalling intentions to expand her business into a new market. The timing — capital raised, growth ambition unlocked — was a high-intent moment.</p>
+          </div>
+          <div class="signal-row">
+            <div class="signal-dot"></div>
+            <p class="signal-text"><strong>Why this angle:</strong> This was not a generic congratulations. It was a recognition that she was at a pivotal inflection point where a strategic thinking partner would have real value. The complimentary call was positioned as a gift at the right moment — not a sales pitch.</p>
+          </div>
+          <div class="message-block">
+            <div class="message-label">Outreach message (paraphrased)</div>
+            <p class="message-text">"Hi [Name], congrats on your recent crowdfunding — that's a real milestone. I noticed you're working on expanding beyond your current market, and that's exactly the kind of pivotal moment our founder loves to think through with people. He'd love to offer you a complimentary call to explore how he could support what you're building right now."</p>
+          </div>
+          <div class="result-line">She booked the call, received a demo, was offered a pilot, became an active user, and later spoke about the platform at the next founder roundtable.</div>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">
+          <div>
+            <div class="example-label">Example B</div>
+            <div class="example-founder">Research institute founder — new project launch</div>
+          </div>
+          <span class="outcome-badge">Converted → Active user</span>
+        </div>
+        <div class="example-body">
+          <div class="signal-row">
+            <div class="signal-dot"></div>
+            <p class="signal-text"><strong>Signal identified:</strong> Founder had recently launched a new research project and had mentioned during the roundtable event that she was navigating a difficult internal team situation. Two signals — public momentum and private pressure — created a clear picture of where she was.</p>
+          </div>
+          <div class="signal-row">
+            <div class="signal-dot"></div>
+            <p class="signal-text"><strong>Why this angle:</strong> The internal conflict was not referenced directly — that would have felt intrusive. Instead, it was used as context to understand her headspace. The outreach led with the positive signal (the project launch) while the underlying awareness of her situation informed the tone: empathetic, not pushy.</p>
+          </div>
+          <div class="message-block">
+            <div class="message-label">Outreach message (paraphrased)</div>
+            <p class="message-text">"Hi [Name], I saw that you're ramping up your new research project — exciting timing. Given everything you're navigating right now, our founder thought it might be worth a quick conversation. He works with founders on exactly this kind of moment — when there's a lot moving at once and you want someone who can think alongside you."</p>
+          </div>
+          <div class="result-line">Responded positively, booked the call, and became an active user of the platform.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KEY LEARNING -->
+  <section class="section">
+    <div class="section-label">Key learning</div>
+    <h2>The single thing that moved the needle.</h2>
+    <div class="insight">
+      <p class="insight-title">Specificity beats volume every time.</p>
+      <p>Generic messages referencing past event attendance or vague product benefits barely registered with busy founders. What converted was the moment the outreach showed that someone had actually paid attention — a recent business development, a public announcement, a challenge mentioned in passing. The research investment per lead was higher, but the quality of conversation that followed was incomparably better. People respond when they feel seen, not just targeted. That's the core principle behind every message in this campaign.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    <p class="footer-note">All client names, company names, and identifying details have been anonymised. Metrics reflect real campaign results.</p>
+    <span class="confidential">Confidential</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
